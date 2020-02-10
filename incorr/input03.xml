@@ -1,0 +1,18 @@
+<system>
+	<task index="8" maj_fr="200" prio="0" bcet="7" wcet="9" period="50" deadline="50" proc="2" Dep="" Inf="1" />
+	<task index="1" maj_fr="200" prio="0" bcet="1" wcet="16" period="50" deadline="50" proc="1" Dep="8" Inf="2" />
+	<task index="2" maj_fr="200" prio="1" bcet="3" wcet="8" period="50" deadline="50" proc="1" Dep="1" Inf="" />
+	<task index="3" maj_fr="200" prio="2" bcet="8" wcet="11" period="40" deadline="40" proc="1" Dep="" Inf="4" />
+	<task index="4" maj_fr="200" prio="3" bcet="4" wcet="18" period="40" deadline="40" proc="1" Dep="3" Inf="5" />
+	<task index="5" maj_fr="200" prio="4" bcet="16" wcet="20" period="40" deadline="40" proc="1" Dep="4" Inf="6" />
+	<task index="6" maj_fr="200" prio="5" bcet="5" wcet="13" period="40" deadline="40" proc="1" Dep="5" Inf="0,7" />
+	<task index="7" maj_fr="200" prio="6" bcet="10" wcet="13" period="40" deadline="40" proc="1" Dep="6" Inf="" />
+	<task index="0" maj_fr="200" prio="0" bcet="7" wcet="19" period="40" deadline="40" proc="0" Dep="6" Inf="" />
+	<tlink src="8" dist="1" delay="3" />
+	<tlink src="1" dist="2" delay="15" />
+	<tlink src="3" dist="4" delay="70" />
+	<tlink src="4" dist="5" delay="41" />
+	<tlink src="5" dist="6" delay="79" />
+	<tlink src="6" dist="7" delay="84" />
+	<tlink src="6" dist="0" delay="86" />
+</system>

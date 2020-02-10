@@ -1,0 +1,33 @@
+<system>
+	<task index="12" maj_fr="20000" prio="0" bcet="3" wcet="5" period="49" deadline="49" proc="2" Dep="" Inf="13" />
+	<task index="13" maj_fr="20000" prio="1" bcet="4" wcet="8" period="49" deadline="49" proc="2" Dep="12" Inf="14" />
+	<task index="14" maj_fr="20000" prio="2" bcet="15" wcet="15" period="49" deadline="49" proc="2" Dep="13" Inf="16,17,15" />
+	<task index="15" maj_fr="20000" prio="3" bcet="15" wcet="18" period="49" deadline="49" proc="2" Dep="14" Inf="" />
+	<task index="16" maj_fr="20000" prio="4" bcet="4" wcet="14" period="49" deadline="49" proc="2" Dep="14" Inf="" />
+	<task index="17" maj_fr="20000" prio="5" bcet="17" wcet="17" period="49" deadline="49" proc="2" Dep="14" Inf="" />
+	<task index="2" maj_fr="20000" prio="0" bcet="1" wcet="15" period="36" deadline="36" proc="1" Dep="" Inf="3,4" />
+	<task index="3" maj_fr="20000" prio="1" bcet="9" wcet="20" period="36" deadline="36" proc="1" Dep="2" Inf="" />
+	<task index="4" maj_fr="20000" prio="2" bcet="2" wcet="18" period="36" deadline="36" proc="1" Dep="2" Inf="" />
+	<task index="5" maj_fr="20000" prio="3" bcet="6" wcet="18" period="48" deadline="48" proc="1" Dep="" Inf="6" />
+	<task index="6" maj_fr="20000" prio="4" bcet="1" wcet="4" period="48" deadline="48" proc="1" Dep="5" Inf="" />
+	<task index="7" maj_fr="20000" prio="5" bcet="6" wcet="10" period="35" deadline="35" proc="1" Dep="" Inf="8" />
+	<task index="8" maj_fr="20000" prio="6" bcet="12" wcet="20" period="35" deadline="35" proc="1" Dep="7" Inf="9,10" />
+	<task index="9" maj_fr="20000" prio="7" bcet="3" wcet="9" period="35" deadline="35" proc="1" Dep="8" Inf="" />
+	<task index="10" maj_fr="20000" prio="8" bcet="14" wcet="14" period="35" deadline="35" proc="1" Dep="8" Inf="" />
+	<task index="11" maj_fr="20000" prio="9" bcet="5" wcet="8" period="43" deadline="43" proc="1" Dep="" Inf="0" />
+	<task index="0" maj_fr="20000" prio="0" bcet="2" wcet="8" period="43" deadline="43" proc="0" Dep="11" Inf="1" />
+	<task index="1" maj_fr="20000" prio="1" bcet="5" wcet="8" period="43" deadline="43" proc="0" Dep="0" Inf="" />
+	<tlink src="12" dist="13" delay="11" />
+	<tlink src="13" dist="14" delay="1" />
+	<tlink src="14" dist="15" delay="74" />
+	<tlink src="14" dist="16" delay="34" />
+	<tlink src="14" dist="17" delay="69" />
+	<tlink src="2" dist="3" delay="91" />
+	<tlink src="2" dist="4" delay="71" />
+	<tlink src="5" dist="6" delay="56" />
+	<tlink src="7" dist="8" delay="11" />
+	<tlink src="8" dist="9" delay="34" />
+	<tlink src="8" dist="10" delay="3" />
+	<tlink src="11" dist="0" delay="48" />
+	<tlink src="0" dist="1" delay="45" />
+</system>

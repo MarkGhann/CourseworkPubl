@@ -1,0 +1,18 @@
+<system>
+    <task index="0" maj_fr="100" prio="2" bcet="1" wcet="5" period="100" deadline="30" proc="0" Dep="" Inf="1" />
+    <task index="1" maj_fr="100" prio="3" bcet="3" wcet="7" period="100" deadline="30" proc="1" Dep="0" Inf="3" />
+    <task index="2" maj_fr="100" prio="1" bcet="5" wcet="9" period="100" deadline="30" proc="0" Dep="" Inf="" />
+    <task index="3" maj_fr="100" prio="0" bcet="2" wcet="6" period="100" deadline="30" proc="0" Dep="1" Inf="4" />
+    <task index="4" maj_fr="100" prio="0" bcet="3" wcet="9" period="100" deadline="30" proc="2" Dep="3" Inf="2" />
+    <task index="5" maj_fr="100" prio="1" bcet="1" wcet="15" period="100" deadline="30" proc="3" Dep="" Inf="6" />
+    <task index="6" maj_fr="100" prio="2" bcet="7" wcet="11" period="100" deadline="30" proc="2" Dep="" Inf="" />
+    <task index="9" maj_fr="100" prio="12" bcet="1" wcet="9" period="100" deadline="30" proc="2" Dep="" Inf="" />
+    <task index="10" maj_fr="100" prio="15" bcet="3" wcet="6" period="100" deadline="30" proc="2" Dep="" Inf="" />
+    <task index="7" maj_fr="100" prio="10" bcet="3" wcet="7" period="100" deadline="30" proc="3" Dep="8" Inf="" />
+    <task index="8" maj_fr="100" prio="2" bcet="4" wcet="8" period="100" deadline="30" proc="4" Dep="" Inf="7" />
+    <link src="8" dst="7" delay="0"/>
+    <link src="3" dst="4" delay="0"/>
+    <link src="1" dst="3" delay="0"/>
+    <link src="0" dst="1" delay="0"/>
+    <link src="4" dst="2" delay="0"/>
+</system>
