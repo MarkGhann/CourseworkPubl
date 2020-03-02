@@ -37,7 +37,7 @@ class Level:
 		self.dep = dep
 
 class Graph:
-    def __init__(self,TaskSet,CoreSet, mass, state = "nulldep"):
+    def __init__(self, TaskSet, CoreSet, mass, state = "nulldep"):
         self.mass = mass
         self.Tree = dict()
         self.path = dict()
@@ -255,5 +255,8 @@ class Graph:
             T = self.Tree[k]
             if T.chek:
                 T.chek = False
+
+    def pretty_reduce(self):
+	return []
 		
 	

@@ -1,0 +1,2 @@
+def ImAl(G):
+	return []
