@@ -5,6 +5,7 @@ import random as rand
 import anopoi as apo
 import genclasses as gec
 import xml.dom.minidom as xm
+import math
 
 def State(G, task):
     for k in G.Tree.keys():
@@ -188,15 +189,16 @@ def getWCRT(G, task, nameinp,nameout):
     return comput_wcrt(G, task, nameinp, nameout)
 
 def lowT(T):
-    return T - 1
+    return T/1
 
 def setState(T, WCRT, new_WCRT, new_state, state):
     E = new_WCRT - WCRT
-    if E <= 0:
+    if E > 0:
         pass
     else:
-        prob = exp(-E/T)
-        r = random.random()
+        prob = math.exp(-E/T)
+        r = rand.random()
+        print("GOOD <-------------------------------------", r)
         if r <= prob:
             WCRT = new_WCRT
             state = new_state
