@@ -255,8 +255,5 @@ class Graph:
             T = self.Tree[k]
             if T.chek:
                 T.chek = False
-
-    def pretty_reduce(self):
-	return []
 		
 	
