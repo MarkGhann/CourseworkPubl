@@ -19,7 +19,7 @@ def push(name,tree,mass):
             inf += int((inf != ""))*',' + str(i)
         for i in node[8]:
             dep += int((dep != ""))*',' + str(i)
-        f.write('\t<task index='+ocr(key)+' maj_fr='+ocr(node[0])+' prio='+ocr(node[4])+' bcet='+ocr(node[3])+' wcet='+ocr(node[2])+' period='+ocr(2*node[5])+' deadline='+ocr(node[6])+' proc='+ocr(node[1])+' Dep="'+dep+'" Inf="'+inf+'" />\n')
+        f.write('\t<task index='+ocr(key)+' maj_fr='+ocr(node[0])+' prio='+ocr(node[4])+' bcet='+ocr(node[3])+' wcet='+ocr(node[2])+' period='+ocr(node[5])+' deadline='+ocr(node[6])+' proc='+ocr(node[1])+' Dep="'+dep+'" Inf="'+inf+'" />\n')
     for key in mass.keys():
         node = mass[key]
         f.write('\t<tlink src='+ocr(node[0])+' dist='+ocr(node[1])+' delay='+ocr(node[2])+' />\n')
@@ -34,7 +34,7 @@ def pop(name):
     dom = xm.parse(name)
     dom.normalize()
     maj_fr = rand.randint(100, 1000000)
-    period = rand.randint(maj_fr // 10, maj_fr)
+    period = maj_fr
     tasks = dom.getElementsByTagName("task")
     for task in tasks:
         task_id = int(task.getAttribute("index"))
@@ -43,7 +43,7 @@ def pop(name):
         wcet = int(wcet*1.1)
         prio = int(task.getAttribute("prio"))
         corenum = int(task.getAttribute("proc"))
-        deadline = rand.randint(period // 10, period)
+        deadline = period
         tree[task_id] = [maj_fr,corenum,wcet,bcet,prio,period,deadline,set(),set()]
     links = dom.getElementsByTagName("link")
     tmp = 0
