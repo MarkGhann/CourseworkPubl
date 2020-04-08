@@ -6,6 +6,8 @@ do
 rm input.xml
 cp ../generate/tests/$var .
 python3 mainAI.py 1
+mv $var input.xml
+cp out.xml ./out
 done
 
 names ="RealDataConstructor/names"
@@ -14,6 +16,8 @@ do
 rm input.xml
 cp ../RealDataConstructor/tests/$var .
 python3 mainAI.py 1
+mv $var input.xml
+cp out.xml ./out
 done
 
 exit 0
