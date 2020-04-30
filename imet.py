@@ -183,17 +183,18 @@ def initialState(G,task,nameinp,nameout):
     state = State(G, task)
     for k in state.Tree.values():
         k.exac = k.timeinterval[1]
-    return state, 100
+    return state, 1000
 
 def getWCRT(G, task, nameinp,nameout):
     return comput_wcrt(G, task, nameinp, nameout)
 
-def lowT(T):
-    return T/1
+def lowT(T, i):
+    return T/(1+i)
 
-def setState(T, WCRT, new_WCRT, new_state, state):
+def setState(T, WCRT, new_WCRT, new_state, state, i):
     E = new_WCRT - WCRT
-    if E > 0:
+    print("|||||||||||||||> ", new_WCRT, WCRT)
+    if E < 0:
         pass
     else:
         prob = math.exp(-E/T)
@@ -202,7 +203,8 @@ def setState(T, WCRT, new_WCRT, new_state, state):
         if r <= prob:
             WCRT = new_WCRT
             state = new_state
-        T = lowT(T)
+        T = lowT(T, i)
+        print("->>>>>>>>>>>>>>>>>>> T in LovT(T, i): ", T, i)
     return state, WCRT, T
 	
 def getState(G, task):
@@ -213,23 +215,26 @@ def imitation(G,task,nameinp,nameout):
     count = 1
     state, T = initialState(G,task,nameinp,nameout)
     search_state = state
-    maxWCRT = WCRT = getWCRT(state, task, nameinp, nameout)
+    maxWCRT = WCRT = 0
     if not state:
         print("Sth is going wrong, the state is empty.")
         return 0, None
-    while count < 10:
+    i = 0
+    while count < 100 and T != 0:
         new_state = getState(G, task)
         print("--------------------------------")
         for a in new_state.Tree.values():
             print(task, "---> ", a.index, "   ", a.exac, "   ", a.timeinterval)
         print("--------------------------------")
         new_WCRT = getWCRT(new_state, task, nameinp,nameout)
-        print("new WCRT = ", new_WCRT)
-        state, WCRT, T = setState(T, WCRT, new_WCRT, new_state, state)
+        print("new WCRT = ", new_WCRT, "WCRT old", maxWCRT)
+        state, WCRT, T = setState(T, maxWCRT, new_WCRT, new_state, state, i)
+        print("T = ", T)
         if maxWCRT < WCRT:
             count = 1
             maxWCRT = WCRT
             search_state = state
         else:
             count += 1
+        i += 1
     return maxWCRT, state
