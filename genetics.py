@@ -204,7 +204,7 @@ def crossing(list1,list2,a):
             count += 1
         else:
             chd2[i] = list1[i]
-    return gec.Ind(chd1,0,20), gec.Ind(chd2,0,20)
+    return gec.Ind(chd1,0), gec.Ind(chd2,0)
 
 def mutating(G,list1,vol,task):
     hm = int((len(list1.keys())/100)*vol)
@@ -260,7 +260,7 @@ def initial_pop(G,task,nameinp,nameout,co):
             if aq == 0:
                 return vals,-1
             souls[tpp] = aq
-        pop += [gec.Ind(vals, souls[tpp],20)]
+        pop += [gec.Ind(vals, souls[tpp])]
     return pop,co
 
 def fitness(matr,G,T):
@@ -289,7 +289,7 @@ def cross(matr):
 def mutation(G,matr,task):
     for i in range(len(matr)):
         pr = prob(0,100)
-        if pr <= 80:
+        if pr <= 60:
             continue
         matr[i].vals = mutating(G,matr[i].vals,matr[i].mutval,task)
     #matr = same(matr)
