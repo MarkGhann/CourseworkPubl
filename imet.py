@@ -6,13 +6,29 @@ import anopoi as apo
 import genclasses as gec
 import xml.dom.minidom as xm
 import math
+import copy
 
-def State(G, task):
+def firstState(G, task):
+    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
+    spec = list(G.get_task(task).anomal)[spec]
+    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
     for k in G.Tree.keys():
-        if k in G.get_task(task).anomal:
+        if k != spec:
             G.get_task(k).exac = apo.get_time_p_A(G.get_task(k))
         else:
-            G.get_task(k).exac = G.get_task(k).timeinterval[1]
+            print("----------------------------------------------------------------->", spec)
+    return G
+
+def State(G, task):
+    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
+    spec = list(G.get_task(task).anomal)[spec]
+    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
+    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
+    spec = list(G.get_task(task).anomal)[spec]
+    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
+    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
+    spec = list(G.get_task(task).anomal)[spec]
+    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
     return G
     
 def NOD(a,b):
@@ -180,16 +196,17 @@ def comput_wcrt(F,task,name1,name2):
     return fa
     
 def initialState(G,task,nameinp,nameout):
-    state = State(G, task)
+    state = firstState(G, task)
     for k in state.Tree.values():
         k.exac = k.timeinterval[1]
+        print(k.exac)
     return state, 1000
 
 def getWCRT(G, task, nameinp,nameout):
     return comput_wcrt(G, task, nameinp, nameout)
 
 def lowT(T, i):
-    return T/(1+i)
+    return T*math.log1p(1+i)/(1+i)
 
 def setState(T, WCRT, new_WCRT, new_state, state, i):
     E = new_WCRT - WCRT
@@ -215,13 +232,13 @@ def imitation(G,task,nameinp,nameout):
     count = 1
     state, T = initialState(G,task,nameinp,nameout)
     search_state = state
-    maxWCRT = WCRT = 0
+    maxWCRT = WCRT = getWCRT(state, task, nameinp,nameout)
     if not state:
         print("Sth is going wrong, the state is empty.")
         return 0, None
     i = 0
-    while count < 100 and T != 0:
-        new_state = getState(G, task)
+    while count < 520 and T != 0:
+        new_state = getState(copy.copy(search_state), task)
         print("--------------------------------")
         for a in new_state.Tree.values():
             print(task, "---> ", a.index, "   ", a.exac, "   ", a.timeinterval)
