@@ -168,6 +168,7 @@ def comput_wcrt(F,task,name1,name2):
     create_sys(F,name1)
     use(name1,name2)
     fa = wcrt(F,name2,task)
+    print("-----------------------------------> ",fa)
     return fa
 
 def ifitness(list1,G,task,nameinp,nameout,co):
@@ -177,6 +178,7 @@ def ifitness(list1,G,task,nameinp,nameout,co):
     for i in G.Tree.keys():
         if i in keys:
             G.Tree[i].exac = list1[i]
+            print(i, "     ", list1[i])
         else:
             G.Tree[i].exac = G.get_task(i).timeinterval[1]
     return comput_wcrt(G,task,nameinp,nameout),co
@@ -214,7 +216,7 @@ def mutating(G,list1,vol,task):
             break
         if prob(0,1):
             continue
-        list1[i] = prob(G.get_task(task).timeinterval[0],G.get_task(task).timeinterval[1])
+        list1[i] = prob(G.get_task(i).timeinterval[0],G.get_task(i).timeinterval[1])
     return list1
 
 def best(matr,vol):
@@ -245,7 +247,22 @@ def putvals(set1 = set()):
 def initial_pop(G,task,nameinp,nameout,co):
     pop = []
     anomals = G.get_task(task).anomal
-    for i in range(26):
+    vals = dict()
+    pp = []
+    for k in anomals: 
+        vals[k] = G.get_task(k).timeinterval[1]
+    for y in sorted(vals.keys()):
+        pp += [vals[y]]
+    tpp = tuple(pp)
+    if tpp in souls.keys():
+        pass
+    else:
+        aq,co =  ifitness(vals,G,task,nameinp,nameout,co)
+        if aq == 0:
+            return vals,-1
+        souls[tpp] = aq
+    pop += [gec.Ind(vals, souls[tpp])]
+    for i in range(25):
         vals = dict()
         pp = []
         for k in anomals: 
@@ -256,6 +273,7 @@ def initial_pop(G,task,nameinp,nameout,co):
         if tpp in souls.keys():
             pass #print("It was before!")
         else:
+            print("==========================>", vals)
             aq,co =  ifitness(vals,G,task,nameinp,nameout,co)
             if aq == 0:
                 return vals,-1
@@ -291,7 +309,11 @@ def mutation(G,matr,task):
         pr = prob(0,100)
         if pr <= 60:
             continue
+        print("+ ==========================>", matr[i].vals)
+        #input()
         matr[i].vals = mutating(G,matr[i].vals,matr[i].mutval,task)
+        print("- ==========================>", matr[i].vals)
+        #input()
     #matr = same(matr)
     return matr
 
