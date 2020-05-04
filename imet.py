@@ -20,15 +20,9 @@ def firstState(G, task):
     return G
 
 def State(G, task):
-    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
-    spec = list(G.get_task(task).anomal)[spec]
-    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
-    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
-    spec = list(G.get_task(task).anomal)[spec]
-    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
-    spec = rand.randint(0, len(G.get_task(task).anomal) - 1)
-    spec = list(G.get_task(task).anomal)[spec]
-    G.get_task(spec).exac = apo.get_time_p_A(G.get_task(spec))
+    for k in G.Tree.keys():
+        if k in G.get_task(task).anomal:
+            G.get_task(k).exac = apo.get_time_p_A(G.get_task(k))
     return G
     
 def NOD(a,b):
@@ -211,17 +205,18 @@ def lowT(T, i):
 def setState(T, WCRT, new_WCRT, new_state, state, i):
     E = new_WCRT - WCRT
     print("|||||||||||||||> ", new_WCRT, WCRT)
-    if E < 0:
-        pass
-    else:
-        prob = math.exp(-E/T)
+    if E > 0:
+        WCRT = new_WCRT
+        state = new_state
+    elif T > 0:
+        prob = math.exp(E/T)
         r = rand.random()
-        print("GOOD <-------------------------------------", r)
+        print("GOOD <-------------------------------------", r, E)
         if r <= prob:
             WCRT = new_WCRT
             state = new_state
-        T = lowT(T, i)
-        print("->>>>>>>>>>>>>>>>>>> T in LovT(T, i): ", T, i)
+    T = lowT(T, i)
+    print("->>>>>>>>>>>>>>>>>>> T in LovT(T, i): ", T, i)
     return state, WCRT, T
 	
 def getState(G, task):
@@ -237,7 +232,7 @@ def imitation(G,task,nameinp,nameout):
         print("Sth is going wrong, the state is empty.")
         return 0, None
     i = 0
-    while count < 520 and T != 0:
+    while count < 260:
         new_state = getState(copy.copy(search_state), task)
         print("--------------------------------")
         for a in new_state.Tree.values():
