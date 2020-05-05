@@ -109,8 +109,8 @@ class Graph:
     def above_above(self,Above_to_Tm,AnomalSet,Gr,period):
         DummySet = set()
         for i in Above_to_Tm:
-            if Gr.get_task(i).per != period:
-                continue
+            #if Gr.get_task(i).per != period:
+            #    continue
             if Gr.get_task(i).chek:
                 continue
             Gr.get_task(i).chek = True
@@ -143,13 +143,15 @@ class Graph:
         DummySet = set()
         ProcTaskSet = (self.get_tasks_proc(self.get_proc(i))).copy()
         for a in ProcTaskSet:
-            if Gr.get_task(i).per != period:
+            #if Gr.get_task(i).per != period:
+            #    continue
+            if a == i:
                 continue
-            if self.get_prior(a) <= self.get_prior(i):
+            if self.get_prior(a) >= self.get_prior(i):
                 continue
-            if Gr.get_task(i).chek:
+            if Gr.get_task(a).chek:
                 continue
-            Gr.get_task(i).chek = True
+            Gr.get_task(a).chek = True
             DummySet.add(a)
             DummySet.update(self.dummion(a,Gr,period))
         return DummySet
@@ -162,9 +164,11 @@ class Graph:
         ProcTaskSet = (self.get_tasks_proc(self.get_proc(i))).copy()
         Del = set()
         for a in ProcTaskSet:
-            if Gr.get_task(i).per != period:
-                Del.add(a)
-            if self.get_prior(a) <= self.get_prior(i):
+            if a == i:
+                 Del.add(a)
+            #if Gr.get_task(i).per != period:
+            #    Del.add(a)
+            if self.get_prior(a) >= self.get_prior(i):
                 Del.add(a)
             if Gr.get_task(a).chek:
                 Del.add(a)

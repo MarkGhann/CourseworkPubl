@@ -66,21 +66,20 @@ def anomal_tasks(name):
 		FindSet = All_Levels[FS]
 		for task in FindSet.tasks:
 			#print(task)
-			period = Gr.get_task().per
+			period = Gr.get_task(task).per
 			#Gr.get_task(task).printt()
 			if type(task) == list:
-				print("WRONG listtype. Please, contact the developer")
+				print("WRONG list type. Please, contact the developer")
 				task = task[0]
 			Paths_to_Tk = Gr.get_above_paths(task)
 			Paths_after_Tk = Gr.get_under_paths(task)
 			Anomal = Gr.inheritance(Paths_to_Tk)
 			ProcTaskSet = (Gr.get_tasks_proc(Gr.get_proc(task))).copy()
-			#print(ProcTaskSet)
 			for Tm in ProcTaskSet:
 				j = False
-				if Gr.get_task(Tm).per != period:
-					continue
-				if Gr.get_prior(Tm) <= Gr.get_prior(task):
+				#if Gr.get_task(Tm).per != period:
+				#	continue
+				if Gr.get_prior(Tm) >= Gr.get_prior(task):
 					continue
 				AnomalSet = set()
 				Paths_to_Tm = Gr.get_above_paths(Tm)
@@ -110,7 +109,6 @@ def anomal_tasks(name):
 						Gr.get_task(k).chek = False
 				if not j:
 					Anomal.update(AnomalSet)
-					Anomal.add(Tm)
 					Gr.dischek()
 			Gr.set_anomal(Anomal,task)
 			#print("Dep: ",FindSet.dep," task num: ",task," Anomal tasks: ",Gr.get_anomal(task))

@@ -307,7 +307,7 @@ def cross(matr):
 def mutation(G,matr,task):
     for i in range(len(matr)):
         pr = prob(0,100)
-        if pr <= 60:
+        if pr <= 50:
             continue
         print("+ ==========================>", matr[i].vals)
         #input()
@@ -336,8 +336,8 @@ def selection(matr,G,task,nameinp,nameout,co):
     for i in range(len(matr)):
         if matr[i].fitness <= 0:
             print("bad select! ",matr[i].fitness)
-    matr1 = best(matr,21)
-    matr2 = worst(matr,5)
+    matr1 = best(matr,23)
+    matr2 = worst(matr,3)
     return unio(matr1,matr2),co
 
 def turn(vals,f,G):

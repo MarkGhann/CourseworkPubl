@@ -16,7 +16,7 @@ def get_time_p_A(task):
 	a = y
 	#c = b-a
 	#P = 1/c
-	N = rn.randrange(a,b,1)
+	N = rn.randrange(a,b+1,1)
 	return N #probabil(N,P)
 	
 def get_time_p_B(task):

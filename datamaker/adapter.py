@@ -1,6 +1,7 @@
 import os as osy
 import sys as system
 import xml.dom.minidom as xm
+import random as rand
 
 def ocr(dig):
     a = "" +'"'
@@ -18,7 +19,7 @@ def push(name,tree,mass):
             inf += int((inf != ""))*',' + str(i)
         for i in node[8]:
             dep += int((dep != ""))*',' + str(i)
-        f.write('\t<task index='+ocr(key)+' maj_fr='+ocr(node[0])+' prio='+ocr(node[4])+' bcet='+ocr(node[3])+' wcet='+ocr(node[2])+' period='+ocr(2*node[5])+' deadline='+ocr(node[6])+' proc='+ocr(node[1])+' Dep="'+dep+'" Inf="'+inf+'" />\n')
+        f.write('\t<task index='+ocr(key)+' maj_fr='+ocr(node[0])+' prio='+ocr(node[4])+' bcet='+ocr(node[3])+' wcet='+ocr(node[2])+' period='+ocr(2*node[5])+' deadline='+ocr(2*node[6])+' proc='+ocr(node[1])+' Dep="'+dep+'" Inf="'+inf+'" />\n')
     for key in mass.keys():
         node = mass[key]
         f.write('\t<tlink src='+ocr(node[0])+' dist='+ocr(node[1])+' delay='+ocr(node[2])+' />\n')
@@ -41,11 +42,11 @@ def pop(name):
             for task in core.getElementsByTagName("task"):
                 task_id = int(task.getAttribute("id"))
                 wcet = int(int(task.getAttribute("wcet")))
-                bcet = int(0.9*wcet)
-                wcet = int(wcet*1.1)
+                bcet = int(wcet/10)
+                wcet = int(bcet*rand.randint(1,20))
                 prio = int(task.getAttribute("prio"))
                 period = int(task.getAttribute("period"))
-                deadline = int(task.getAttribute("deadline"))
+                deadline = period
                 tree[task_id] = [maj_fr,corenum,wcet,bcet,prio,period,deadline,set(),set()]
             count += 1
     links = dom.getElementsByTagName("link")
