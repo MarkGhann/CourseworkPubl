@@ -66,7 +66,7 @@ for num in G.num:
 		print("Correct ! number:",num," WCRT base:", WCRT2," WCRT GA:", WCRT1, " Scenario:", 'empty', " count(iterations):", cc, " working time:",end_timebf)
 		#input()
 	finf = open("output.xml",'w')
-	finf.write("WCRT: " + str(WCRT1)+"\nTime: "+str(end_timebf) + "\nTask number: " + str(num) + "\nWCRT: " + str(WCRT2))
+	finf.write("WCRT BF: " + str(WCRT1)+"\nTime: "+str(end_timebf) + "\nTask number: " + str(num) + "\nWCRT BS: " + str(WCRT2))
 	finf.close()
 	#tasks += [(num,res_time,cc,WCRT1,WCRT2,end_timebf,end_timega)]
 #for i in range(len(tasks)):

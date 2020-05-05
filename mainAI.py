@@ -56,7 +56,7 @@ for num in G.num:
 	else:
 		print("Correct ! number:",num," WCRT base:",WCRT2," WCRT GA:",res_time, " Scenario:", ind, " count(iterations):", cc, " working time:",end_timega)
 	finf = open("output.xml",'w')
-	finf.write("WCRT: " + str(res_time)+"\nTime: "+str(end_timega)+"\nsolution: " + str(ind) + "\nTask number: " + str(num) + "\nWCRT: " + str(WCRT2))
+	finf.write("WCRT AI: " + str(res_time)+"\nTime: "+str(end_timega)+"\nsolution: " + str(ind) + "\nTask number: " + str(num) + "\nWCRT BS: " + str(WCRT2))
 	finf.close()
 print("--- %All time:  ---", (time.time() - start_time1))
 if No_flag:
