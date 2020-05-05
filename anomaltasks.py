@@ -79,7 +79,7 @@ def anomal_tasks(name):
 				j = False
 				#if Gr.get_task(Tm).per != period:
 				#	continue
-				if Gr.get_prior(Tm) >= Gr.get_prior(task):
+				if Gr.get_prior(Tm) <= Gr.get_prior(task):
 					continue
 				AnomalSet = set()
 				Paths_to_Tm = Gr.get_above_paths(Tm)
@@ -110,6 +110,8 @@ def anomal_tasks(name):
 				if not j:
 					Anomal.update(AnomalSet)
 					Gr.dischek()
+			if task in Anomal:
+				Anomal.remove(task)
 			Gr.set_anomal(Anomal,task)
 			#print("Dep: ",FindSet.dep," task num: ",task," Anomal tasks: ",Gr.get_anomal(task))
 	print(" \n \n \n")

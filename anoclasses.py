@@ -147,7 +147,7 @@ class Graph:
             #    continue
             if a == i:
                 continue
-            if self.get_prior(a) >= self.get_prior(i):
+            if self.get_prior(a) <= self.get_prior(i):
                 continue
             if Gr.get_task(a).chek:
                 continue
@@ -168,7 +168,7 @@ class Graph:
                  Del.add(a)
             #if Gr.get_task(i).per != period:
             #    Del.add(a)
-            if self.get_prior(a) >= self.get_prior(i):
+            if self.get_prior(a) <= self.get_prior(i):
                 Del.add(a)
             if Gr.get_task(a).chek:
                 Del.add(a)
