@@ -15,8 +15,8 @@ def firstState(G, task):
     for k in G.Tree.keys():
         if k != spec:
             G.get_task(k).exac = apo.get_time_p_A(G.get_task(k))
-        else:
-            print("----------------------------------------------------------------->", spec)
+        #else:
+            #print("----------------------------------------------------------------->", spec)
     return G
 
 def State(G, task):
@@ -193,7 +193,7 @@ def initialState(G,task,nameinp,nameout):
     state = firstState(G, task)
     for k in state.Tree.values():
         k.exac = k.timeinterval[1]
-        print(k.exac)
+        #print(k.exac)
     return state, 1000
 
 def getWCRT(G, task, nameinp,nameout):
@@ -204,19 +204,19 @@ def lowT(T, i):
 
 def setState(T, WCRT, new_WCRT, new_state, state, i):
     E = new_WCRT - WCRT
-    print("|||||||||||||||> ", new_WCRT, WCRT)
+    #print("|||||||||||||||> ", new_WCRT, WCRT)
     if E > 0:
         WCRT = new_WCRT
         state = new_state
     elif T > 0:
         prob = math.exp(E/T)
         r = rand.random()
-        print("GOOD <-------------------------------------", r, E)
+        #print("GOOD <-------------------------------------", r, E)
         if r <= prob:
             WCRT = new_WCRT
             state = new_state
     T = lowT(T, i)
-    print("->>>>>>>>>>>>>>>>>>> T in LovT(T, i): ", T, i)
+    #print("->>>>>>>>>>>>>>>>>>> T in LovT(T, i): ", T, i)
     return state, WCRT, T
 	
 def getState(G, task):
@@ -229,19 +229,19 @@ def imitation(G,task,nameinp,nameout):
     search_state = state
     maxWCRT = WCRT = getWCRT(state, task, nameinp,nameout)
     if not state:
-        print("Sth is going wrong, the state is empty.")
+        #print("Sth is going wrong, the state is empty.")
         return 0, None
     i = 0
     while count < 260:
         new_state = getState(copy.copy(search_state), task)
-        print("--------------------------------")
-        for a in new_state.Tree.values():
-            print(task, "---> ", a.index, "   ", a.exac, "   ", a.timeinterval)
-        print("--------------------------------")
+        #print("--------------------------------")
+        #for a in new_state.Tree.values():
+        #    print(task, "---> ", a.index, "   ", a.exac, "   ", a.timeinterval)
+        #print("--------------------------------")
         new_WCRT = getWCRT(new_state, task, nameinp,nameout)
-        print("new WCRT = ", new_WCRT, "WCRT old", maxWCRT)
+        #print("new WCRT = ", new_WCRT, "WCRT old", maxWCRT)
         state, WCRT, T = setState(T, maxWCRT, new_WCRT, new_state, state, i)
-        print("T = ", T)
+        #print("T = ", T)
         if maxWCRT < WCRT:
             count = 1
             maxWCRT = WCRT
