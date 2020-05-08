@@ -65,7 +65,7 @@ def anomal_tasks(name):
 		#print("here")
 		FindSet = All_Levels[FS]
 		for task in FindSet.tasks:
-			#print(task)
+			#print(task, FS)
 			period = Gr.get_task(task).per
 			#Gr.get_task(task).printt()
 			if type(task) == list:
@@ -92,26 +92,29 @@ def anomal_tasks(name):
 							break
 						j = Gr.under_above(Under_to_Tk,Above_to_Tm,AnomalSet)
 				for key in Paths_to_Tk:
-					Above_to_Tk = Paths_to_Tk[key]
+					Above_to_Tk = [task]
 					for k in Paths_after_Tm:
 						Under_to_Tm = Paths_after_Tm[k]
 						if j:
 							break
 						j = Gr.above_under(Above_to_Tk,Under_to_Tm,AnomalSet)
-				for key in Paths_to_Tk:
-					Above_to_Tk = Paths_to_Tk[key]
-					for k in Paths_to_Tm:
-						Above_to_Tm = Paths_to_Tm[k]
-						if j:
-							break
-						AnomalSet = Gr.above_above(Above_to_Tm,AnomalSet,Gr,period)
-					for k in AnomalSet:
-						Gr.get_task(k).chek = False
+				for k in Paths_to_Tm:
+					Above_to_Tm = Paths_to_Tm[k]
+					if j:
+						break
+					AnomalSet = Gr.above_above(Above_to_Tm,AnomalSet,Gr,period, task)
+				for k in AnomalSet:
+					Gr.get_task(k).chek = False
 				if not j:
 					Anomal.update(AnomalSet)
-					Gr.dischek()
+				Gr.dischek()
 			if task in Anomal:
 				Anomal.remove(task)
+			for y in ProcTaskSet:
+				if Gr.get_prior(y) <= Gr.get_prior(task):
+					continue
+				if y in Anomal:
+					Anomal.remove(y)
 			Gr.set_anomal(Anomal,task)
 			#print("Dep: ",FindSet.dep," task num: ",task," Anomal tasks: ",Gr.get_anomal(task))
 	print(" \n \n \n")

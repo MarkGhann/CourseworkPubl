@@ -106,57 +106,51 @@ class Graph:
             	AnomalSet.update(self.get_anomal(j))
         return AnomalSet
 
-    def above_above(self,Above_to_Tm,AnomalSet,Gr,period):
+    def above_above(self,Above_to_Tm,AnomalSet,Gr,period,t):
         DummySet = set()
         for i in Above_to_Tm:
-            #if Gr.get_task(i).per != period:
-            #    continue
-            if Gr.get_task(i).chek:
-                continue
             Gr.get_task(i).chek = True
             DummySet.add(i)
-            DummySet.update(self.dummy(i,Gr,period)) 
+            DummySet.update(self.dummy(i,Gr,period,t)) 
         AnomalSet.update(DummySet)
         return AnomalSet
 
-    def under_above(self,Above_to_Tk,Above_to_Tm,AnomalSet):
+    def under_above(self,Under_to_Tk,Above_to_Tm,AnomalSet):
         f = False
         for i in Above_to_Tm:
-            for j in Above_to_Tk:
+            for j in Under_to_Tk:
                 if  i == j or i in self.Tree[j].Inf:
                     f = True
                     break		
         return f
 
-    def above_under(self,Above_to_Tk,Above_to_Tm,AnomalSet):
+    def above_under(self,Above_to_Tk,Under_to_Tm,AnomalSet):
         f = False
-        for i in Above_to_Tm:
+        for i in Under_to_Tm:
             for j in Above_to_Tk:
                 if  i == j or i in self.Tree[j].Dep:
                     f = True
                     break		
-        return f
+        return False
 
-    def dummy(self,i,Gr,period):
+    def dummy(self,i,Gr,period,p):
         if i == -1:
             return set()
         DummySet = set()
         ProcTaskSet = (self.get_tasks_proc(self.get_proc(i))).copy()
         for a in ProcTaskSet:
-            #if Gr.get_task(i).per != period:
-            #    continue
             if a == i:
                 continue
             if self.get_prior(a) <= self.get_prior(i):
                 continue
-            if Gr.get_task(a).chek:
+            if Gr.Tree[a].chek:
                 continue
-            Gr.get_task(a).chek = True
+            Gr.Tree[a].chek = True
             DummySet.add(a)
-            DummySet.update(self.dummion(a,Gr,period))
+            DummySet.update(self.dummion(a,Gr,period,p))
         return DummySet
 
-    def dummion(self,i,Gr,period):
+    def dummion(self,i,Gr,period,p):
         if i == -1:
             return set()
         DummionSet = set()
@@ -166,24 +160,22 @@ class Graph:
         for a in ProcTaskSet:
             if a == i:
                  Del.add(a)
-            #if Gr.get_task(i).per != period:
-            #    Del.add(a)
             if self.get_prior(a) <= self.get_prior(i):
                 Del.add(a)
-            if Gr.get_task(a).chek:
+            if Gr.Tree[a].chek:
                 Del.add(a)
-            Gr.get_task(a).chek = True
-        ProcTaskSet.difference_update(Del)
+            Gr.Tree[a].chek = True
+        for d in Del:
+            if d in ProcTaskSet:
+                ProcTaskSet.remove(d)
         for a in task.Dep:
-            if Gr.get_task(i).per != period:
+            if Gr.Tree[a].chek:
                 continue
-            if Gr.get_task(a).chek:
-                continue
-            Gr.get_task(a).chek = True
+            Gr.Tree[a].chek = True
             ProcTaskSet.add(a)
         DummionSet.update(ProcTaskSet)
         for a in ProcTaskSet:
-            DummionSet.update(self.dummion(a,Gr,period))
+            DummionSet.update(self.dummion(a,Gr,period,p))
         return DummionSet
 
     def get_anomal(self,j):
