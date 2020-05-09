@@ -55,36 +55,17 @@ while(node_num < task_num - 1):
     node[node_num].Inf.add(second)
     node[second].Dep.add(node_num)
     node_num += 1
-dell = task_num // cores_num
-num = 0
-for c in range(0,cores_num):
-    prr = [x for x in range(0,dell)]
-    for t in range(0, dell):
-        inf  = ""
-        dep = ""
-        for i in node[num].Inf:
-            inf += int((inf != ""))*',' + str(i)
-        for i in node[num].Dep:
-            dep += int((dep != ""))*',' + str(i)
-        pr = rand.choice(prr)
-        f.write('\t<task index='+ocr(num)+' prio='+ocr(pr)+' proc='+ocr(c)+' Dep="'+dep+'" Inf="'+inf+'" />\n')
-        prr.remove(pr)
-        num += 1
-dell = task_num % cores_num
-if  dell > 0:
-    c = cores_num
-    prr = [x for x in range(0,dell)]
-    for t in range(0, dell):
-        inf  = ""
-        dep = ""
-        for i in node[num].Inf:
-            inf += int((inf != ""))*',' + str(i)
-        for i in node[num].Dep:
-            dep += int((dep != ""))*',' + str(i)
-        pr = rand.choice(prr)
-        f.write('\t<task index='+ocr(num)+' prio='+ocr(pr)+' proc='+ocr(c)+' Dep="'+dep+'" Inf="'+inf+'" />\n')
-        prr.remove(pr)
-        num += 1
+
+for c in range(0, task_num):
+    inf  = ""
+    dep = ""
+    for i in node[c].Inf:
+        inf += int((inf != ""))*',' + str(i)
+    for i in node[c].Dep:
+        dep += int((dep != ""))*',' + str(i)
+    pr = rand.randint(0, cores_num)
+    f.write('\t<task index='+ocr(c)+' prio='+ocr(c)+' proc='+ocr(pr)+' Dep="'+dep+'" Inf="'+inf+'" />\n')
+
 
 for key in range(0, task_num):
     for j in node[key].Inf:
