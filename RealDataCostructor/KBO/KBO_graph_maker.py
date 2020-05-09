@@ -31,7 +31,6 @@ for j in range(k, node_num):
         c = False
         for y in node[o].Inf:
             if y >= k:
-                print(">   ",j,o,k, " y = ",y)
                 c = True
                 break
         p = rand.randint(1,101)

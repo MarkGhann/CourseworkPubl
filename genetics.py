@@ -273,7 +273,6 @@ def initial_pop(G,task,nameinp,nameout,co):
         if tpp in souls.keys():
             pass #print("It was before!")
         else:
-            print("==========================>", vals)
             aq,co =  ifitness(vals,G,task,nameinp,nameout,co)
             if aq == 0:
                 return vals,-1
@@ -309,10 +308,8 @@ def mutation(G,matr,task):
         pr = prob(0,100)
         if pr <= 50:
             continue
-        print("+ ==========================>", matr[i].vals)
         #input()
         matr[i].vals = mutating(G,matr[i].vals,matr[i].mutval,task)
-        print("- ==========================>", matr[i].vals)
         #input()
     #matr = same(matr)
     return matr
