@@ -33,14 +33,14 @@ def pop(name):
     f = open(name,'r')
     dom = xm.parse(name)
     dom.normalize()
-    maj_fr = rand.randint(100, 1000000)
+    maj_fr = rand.randint(1, 10000)
     period = maj_fr
     tasks = dom.getElementsByTagName("task")
     for task in tasks:
         task_id = int(task.getAttribute("index"))
-        wcet = rand.randint(1, 100)
-        bcet = int(0.9*wcet)
-        wcet = int(wcet*1.1)
+        wcet = rand.randint(1, maj_fr//40)
+        bcet = int(wcet/10)
+        wcet = int(2*wcet)
         prio = int(task.getAttribute("prio"))
         corenum = int(task.getAttribute("proc"))
         deadline = period
