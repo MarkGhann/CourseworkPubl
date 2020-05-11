@@ -21,7 +21,7 @@ count = 0
 cc = -1
 res_time = 0
 WCRT1 = 0
-nom = int(input("Task num: "))
+nom = int(system.argv[1])
 No_flag = True
 for num in G.num:
 	if num < 0:
@@ -39,7 +39,7 @@ for num in G.num:
 		for ta in G.get_task(num).anomal:
 			ovj *= G.get_task(ta).timeinterval[1] - G.get_task(ta).timeinterval[0] + 1
 		print(" Number of possible solutions: ",ovj)
-	input("press any key to continue")
+	#input("press any key to continue")
 	for i in G.Tree.keys():
 		G.Tree[i].exac = G.get_task(i).timeinterval[1]
 	WCRT2,cc1 = ge.ifitness(dict(),G,num,NAME1,NAME2,cc)
@@ -52,7 +52,6 @@ for num in G.num:
 	end_timega = time.time() - start_timega
 	if cc == -1 or count == -1 or cc1 == -1:
 		print("Incorrect ! number:",num," WCRT base:",WCRT2," WCRT GA:",res_time, " Scenario:", ind, " count(iterations):", cc, " working time:",end_timega)
-		break
 	else:
 		print("Correct ! number:",num," WCRT base:",WCRT2," WCRT GA:",res_time, " Scenario:", ind, " count(iterations):", cc, " working time:",end_timega)
 	finf = open("output.xml",'w')
