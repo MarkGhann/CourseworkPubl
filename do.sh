@@ -13,3 +13,5 @@ cp output$i.xml $results
 rm output$i.xml
 done
 rm input.xml
+rm scenario.xml
+rm data.xml
