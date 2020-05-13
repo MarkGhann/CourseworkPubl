@@ -249,4 +249,7 @@ def imitation(G,task,nameinp,nameout):
         else:
             count += 1
         i += 1
-    return maxWCRT, state
+    sce = {}
+    for i in state.Tree[task].anomal:
+        sce[i] = state.Tree[i].exac
+    return maxWCRT, sce
