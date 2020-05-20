@@ -24,8 +24,8 @@ Sw = 0
 St = 0
 
 for i in range(0, 100):
-	Sw += W[i] - aveW
-	St += T[i] - aveT
+	Sw += (W[i] - aveW)**2
+	St += (T[i] - aveT)**2
 
 Sw = (1/99) * Sw
 St = (1/99) * St
