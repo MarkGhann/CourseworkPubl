@@ -156,7 +156,7 @@
 <task index="154" maj_fr="446275" prio="0" bcet="85" wcet="104" period="446275" deadline="446275" proc="8" Dep="39,71,103,135,47,79,111,143,23,119,87,55,151,127,63,95,31" Inf=""/>
     <task index="10000" maj_fr="446275" prio="1" bcet="1" wcet="2000" period="446275" deadline="446275" proc="9" Dep="" Inf="10002" />
 	<task index="10001" maj_fr="446275" prio="1" bcet="1" wcet="2000" period="446275" deadline="446275" proc="10" Dep="" Inf="" />
-	<task index="10002" maj_fr="446275" prio="2" bcet="1" wcet="2000" period="446275" deadline="446275" proc="10" Dep="10000" Inf="" />
+	<task index="10002" maj_fr="446275" prio="2" bcet="1" wcet="7016" period="446275" deadline="446275" proc="10" Dep="10000" Inf="" />
 <tlink src="0" dist="34" delay="6"/>
 <tlink src="0" dist="66" delay="80"/>
 <tlink src="0" dist="58" delay="87"/>

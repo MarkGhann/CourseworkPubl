@@ -5,7 +5,47 @@ import genetics as ge
 import time
 import threading
 
+def turn(vals,f,G):
+    l = len(vals)
+    end = False
+    j = 0
+    for i in sorted(vals.keys()):
+        ll = G.get_task(i).timeinterval[1] - G.get_task(i).timeinterval[0] + 1
+        if f[j] >= ll:
+            if j == l-1:
+                end = True
+                break
+            f[j+1] += 1
+            f[j] = 0
+        vals[i] = G.get_task(i).timeinterval[0] + f[j]
+        #print(G.get_task(i).timeinterval[0])
+        if j == 0:
+            f[j] += 1
+        j += 1
+    return vals,f,end
 
+def BF(G,task,nameinp,nameout,anomal):
+    vals = vm =dict()
+    if not anomal:
+        print("No anomals")
+        return 0,0
+    f = [0 for k in range(len(anomal))]
+    for i in anomal:
+        vals[i] = 0
+    WCRT = -1
+    end = False
+    count = 0
+    co = 0
+    while not end:
+        count += 1
+        vals,f,end = turn(vals,f,G)
+        tmp,co = ge.ifitness(vals,G,task,nameinp,nameout,co)
+        if tmp > WCRT:
+            vm = vals
+            WCRT = tmp
+    return WCRT, count, vm
+
+vm = dict()
 system.setrecursionlimit(100000)
 
 start_time = time.time()
@@ -30,7 +70,7 @@ count = 0
 cc = -1
 res_time = 0
 WCRT1 = 0
-nom = int(input("Task num: "))
+nom = int(system.argv[1])
 No_flag = True
 for num in G.num:
 	if num < 0:
@@ -48,14 +88,13 @@ for num in G.num:
 		for ta in G.get_task(num).anomal:
 			ovj *= G.get_task(ta).timeinterval[1] - G.get_task(ta).timeinterval[0] + 1
 		print(" Number of possible solutions: ",ovj)
-	input("press any key to continue")
 	for i in G.Tree.keys():
 		G.Tree[i].exac = G.get_task(i).timeinterval[1]
 	WCRT2,cc1 = ge.ifitness(dict(),G,num,NAME1,NAME2,cc)
 	for i in G.Tree.keys():
 		G.Tree[i].exac = G.get_task(i).timeinterval[1]
 	start_timebf = time.time()
-	WCRT1, count = ge.BF(G,num,NAME1,NAME2,G.Tree[num].anomal)
+	WCRT1, count, vm = BF(G,num,NAME1,NAME2,G.Tree[num].anomal)
 	end_timebf = time.time() - start_timebf
 	if count == -1 or cc1 == -1:
 		print("Incorrect ! number:",num," WCRT base:",WCRT2," WCRT GA:",WCRT1, " Scenario:", 'empty', " count(iterations):", cc, " working time:",end_timebf)
@@ -63,7 +102,7 @@ for num in G.num:
 		#continue
 		break
 	else:
-		print("Correct ! number:",num," WCRT base:", WCRT2," WCRT GA:", WCRT1, " Scenario:", 'empty', " count(iterations):", cc, " working time:",end_timebf)
+		print("Correct ! number:",num," WCRT base:", WCRT2," WCRT GA:", WCRT1, " Scenario:", vm, " count(iterations):", cc, " working time:",end_timebf)
 		#input()
 	finf = open("output.xml",'w')
 	finf.write("WCRT BF: " + str(WCRT1)+"\nTime: "+str(end_timebf) + "\nTask number: " + str(num) + "\nWCRT BS: " + str(WCRT2))
