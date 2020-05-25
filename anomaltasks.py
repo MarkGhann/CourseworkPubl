@@ -111,7 +111,7 @@ def anomal_tasks(name):
 			if task in Anomal:
 				Anomal.remove(task)
 			for y in ProcTaskSet:
-				if Gr.get_prior(y) <= Gr.get_prior(task):
+				if Gr.get_prior(y) >= Gr.get_prior(task):
 					continue
 				if y in Anomal:
 					Anomal.remove(y)
