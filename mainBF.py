@@ -1,7 +1,7 @@
 import sys as system
 import subprocess as sub
 import anomaltasks as ata
-import genetics as ge
+import bruteforce as ge
 import time
 import threading
 

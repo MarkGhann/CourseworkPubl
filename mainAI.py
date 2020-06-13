@@ -4,7 +4,7 @@ import anomaltasks as ata
 import genetics as ge
 import time
 import threading
-import imet
+import annealing
 
 start_time = time.time()
 
@@ -47,7 +47,7 @@ for num in G.num:
 		G.Tree[i].exac = G.get_task(i).timeinterval[1]
 	start_timega = time.time()
 	if (count >= 0):
-		res_time, ind = imet.imitation(G,num,NAME1,NAME2)
+		res_time, ind = annealing.imitation(G,num,NAME1,NAME2)
 		cc = 1
 	end_timega = time.time() - start_timega
 	if cc == -1 or count == -1 or cc1 == -1:
